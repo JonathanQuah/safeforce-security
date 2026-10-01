@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2A3" />
+      <stop offset="35%" stop-color="#D4AF37" />
+      <stop offset="70%" stop-color="#AA820A" />
+      <stop offset="100%" stop-color="#694F02" />
+    </linearGradient>
+    <linearGradient id="shieldFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181B22" />
+      <stop offset="60%" stop-color="#0E1015" />
+      <stop offset="100%" stop-color="#050608" />
+    </linearGradient>
+    <linearGradient id="goldPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFDF73" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#946F0E" />
+    </linearGradient>
+    <linearGradient id="redCenter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C52828" />
+      <stop offset="50%" stop-color="#8F1515" />
+      <stop offset="100%" stop-color="#550A0A" />
+    </linearGradient>
+    <filter id="badgeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Shield Outline -->
+  <path d="M 150 15 
+           L 275 60 
+           C 275 190, 240 280, 150 345 
+           C 60 280, 25 190, 25 60 
+           Z" 
+        fill="url(#shieldFill)" 
+        stroke="url(#goldGrad)" 
+        stroke-width="9" 
+        filter="url(#badgeShadow)" />
+
+  <!-- Inner Gold Shield Inset -->
+  <path d="M 150 32 
+           L 255 70 
+           C 255 185, 222 265, 150 325 
+           C 78 265, 45 185, 45 70 
+           Z" 
+        fill="none" 
+        stroke="url(#goldGrad)" 
+        stroke-width="2.5" 
+        stroke-dasharray="4 2" />
+
+  <!-- Golden Rayburst / Star Emblem Center -->
+  <g transform="translate(150, 155)">
+    <!-- Outer Wreath / Gear Points -->
+    <circle r="74" fill="url(#goldPlate)" stroke="#3A2C04" stroke-width="2"/>
+    <circle r="68" fill="url(#redCenter)" stroke="url(#goldGrad)" stroke-width="3"/>
+    
+    <!-- Gold 14-Point Malaysian National Star & Crescent motif -->
+    <path d="M 0 -45 L 8 -16 L 36 -32 L 20 -7 L 46 8 L 19 16 L 30 43 L 6 28 L -5 46 L -10 27 L -36 38 L -24 13 L -46 -4 L -19 -11 Z" 
+          fill="url(#goldGrad)" />
+    
+    <circle r="18" fill="url(#goldPlate)" stroke="#4A3B05" stroke-width="1.5"/>
+    <circle r="10" fill="#8F1515" />
+    <circle r="4" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Golden Banner Ribbon at Base -->
+  <path d="M 75 270 
+           C 115 285, 185 285, 225 270 
+           L 230 298 
+           C 185 315, 115 315, 70 298 
+           Z" 
+        fill="url(#goldPlate)" 
+        stroke="#423102" 
+        stroke-width="2" />
+        
+  <text x="150" y="293" 
+        text-anchor="middle" 
+        font-family="'Plus Jakarta Sans', Arial, sans-serif" 
+        font-weight="900" 
+        font-size="16" 
+        letter-spacing="5" 
+        fill="#121316">
+    MALAYSIA
+  </text>
+  
+  <!-- Subtle Top Arch Text -->
+  <path id="archText" d="M 80 100 A 75 75 0 0 1 220 100" fill="none" />
+  <text font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="11" font-weight="800" fill="url(#goldGrad)" letter-spacing="3">
+    <textPath href="#archText" startOffset="50%" text-anchor="middle">
+      SAFE FORCE SECURITY
+    </textPath>
+  </text>
+</svg>
