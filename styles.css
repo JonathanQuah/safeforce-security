@@ -318,6 +318,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+.mobile-menu-cta {
+  display: none !important;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -1423,6 +1427,27 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1.06);
 }
 
+/* Trust Factors Section (Clients Page) */
+.trust-factors-box {
+  margin-top: 60px;
+  padding: 40px;
+  background: var(--obsidian-900);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+}
+
+[data-theme="light"] .trust-factors-box {
+  background: #FFFFFF;
+  border-color: #E2E8F0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.trust-factor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
 /* Interactive Security Audit Request & Cost Calculator (Slide 15) */
 .audit-cta-section {
   background: linear-gradient(180deg, var(--obsidian-900) 0%, #06080B 100%);
@@ -1708,7 +1733,17 @@ textarea.form-control {
 
 /* Responsive Breakpoints */
 @media (max-width: 1024px) {
+  .container {
+    padding: 0 20px;
+  }
   .hero-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .pillars-grid, .doctrine-grid.pillars-grid-3, .doctrine-grid.pillars-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .module-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .leadership-card {
@@ -1729,50 +1764,459 @@ textarea.form-control {
   .audit-cta-card {
     grid-template-columns: 1fr;
   }
+  .client-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .footer-top {
     grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
   }
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* Utility Top Bar: hidden on mobile to give room to brand & navigation */
   .top-bar {
     display: none;
   }
-  .nav-menu, .nav-actions {
+
+  /* Main Navigation Header */
+  .main-header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .navbar {
+    padding: 10px 0;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-logo {
+    gap: 8px;
+  }
+
+  .logo-shield {
+    width: 34px;
+    height: 40px;
+  }
+
+  .brand-name {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .brand-sub {
+    font-size: 0.54rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* Keep action cluster alive on mobile: Theme toggle + Hamburger button */
+  .nav-actions {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Hide the long text CTA button in the navbar row on mobile (available inside dropdown) */
+  .nav-actions .btn {
     display: none;
   }
+
+  .theme-toggle-btn {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
   .mobile-toggle {
-    display: block;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--transition-fast);
   }
-  .timeline-grid {
-    grid-template-columns: 1fr;
+
+  [data-theme="light"] .mobile-toggle {
+    color: #0F172A;
+    background: #F1F5F9;
+    border-color: #CBD5E1;
   }
+
+  .mobile-toggle:hover {
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+  }
+
+  /* Mobile Dropdown Menu */
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(11, 13, 17, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--card-border);
+    border-bottom: 2px solid var(--gold-primary);
+    padding: 16px 16px 24px;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+
+  [data-theme="light"] .nav-menu {
+    background: rgba(255, 255, 255, 0.98);
+    border-top: 1px solid #E2E8F0;
+    border-bottom: 2px solid var(--gold-primary);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-menu.mobile-open {
+    display: flex !important;
+    animation: mobileSlideDown 0.22s ease-out forwards;
+  }
+
+  @keyframes mobileSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-menu .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--slate-200);
+    min-height: 48px;
+  }
+
+  [data-theme="light"] .nav-menu .nav-link {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    color: #1E293B;
+  }
+
+  .nav-menu .nav-link.active,
+  .nav-menu .nav-link:hover {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+  }
+
+  [data-theme="light"] .nav-menu .nav-link.active,
+  [data-theme="light"] .nav-menu .nav-link:hover {
+    background: #FEF9E7;
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+  }
+
+  .mobile-menu-cta {
+    display: flex !important;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  /* Section Spacing on Mobile */
+  .section {
+    padding: 50px 0;
+  }
+
+  .page-header {
+    padding: 50px 0 35px;
+  }
+
+  .page-header-title {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+
+  .section-desc {
+    font-size: 0.92rem;
+    margin-bottom: 24px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    min-height: auto;
+    padding: 50px 0 60px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .hero-cta-group {
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  /* Hero Metrics Grid */
+  .hero-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .metric-card {
+    padding: 16px 12px;
+  }
+
+  .metric-number {
+    font-size: 1.8rem;
+  }
+
+  .metric-label {
+    font-size: 0.72rem;
+  }
+
+  /* Single Column Layouts on Mobile */
+  .pillars-grid,
+  .doctrine-grid,
+  .pillars-grid-3,
+  .pillars-grid-4,
+  .threat-grid,
+  .recruitment-pyramid,
+  .module-grid,
+  .audit-flow-grid,
+  .capital-stats-bar,
+  .locations-section-grid,
+  .locations-grid,
+  .contact-grid,
+  .form-group-row,
+  .timeline-grid,
+  .insurance-grid,
+  .hardware-grid,
+  .audit-cta-card,
+  .trust-factor-grid {
+    grid-template-columns: 1fr !important;
+  }
+
   .timeline-track::before {
     display: none;
   }
-  .doctrine-grid {
-    grid-template-columns: 1fr;
+
+  .timeline-point {
+    margin-bottom: 20px;
   }
-  .recruitment-pyramid {
-    grid-template-columns: 1fr;
+
+  .leadership-visual,
+  .leadership-bio {
+    padding: 24px 18px;
   }
-  .audit-flow-grid {
-    grid-template-columns: 1fr;
+
+  .nepal-banner {
+    padding: 24px 18px;
+    margin-top: 24px;
   }
+
+  .nepal-quote-box {
+    padding: 20px 16px;
+  }
+
   .capital-stats-bar {
-    grid-template-columns: 1fr;
+    padding: 20px 16px;
+    gap: 16px;
   }
+
+  .career-steps {
+    gap: 12px;
+  }
+
+  .career-step {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  /* Clients Grid & Filter */
+  .client-filter-bar {
+    display: flex;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 4px 16px 12px;
+    margin: 16px -16px 24px;
+    gap: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .client-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+
   .client-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
-  .locations-section-grid {
-    grid-template-columns: 1fr;
+
+  .client-card {
+    padding: 16px 10px;
+    min-height: auto;
   }
-  .form-group-row {
-    grid-template-columns: 1fr;
+
+  .client-logo-box {
+    height: 52px;
+    padding: 6px 10px;
+    margin-bottom: 10px;
   }
+
+  .client-logo {
+    max-height: 34px;
+  }
+
+  .client-brand-name {
+    font-size: 0.92rem;
+  }
+
+  .client-category {
+    font-size: 0.65rem;
+  }
+
+  /* Solutions Tabs Horizontal Scroll */
+  .ecosystem-tabs {
+    display: flex;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 4px 16px 12px;
+    margin: 16px -16px 24px;
+    gap: 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .ecosystem-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+  }
+
+  /* CTA Strip */
+  .cta-banner-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 18px;
+  }
+
+  .cta-banner-strip > div:last-child {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cta-banner-strip .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Forms & Inputs */
+  .audit-cta-card {
+    padding: 24px 16px;
+  }
+
+  .form-control, input, select, textarea {
+    font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
+  }
+
+  /* Footer */
   .footer-top {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .client-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .brand-text {
+    max-width: 180px;
+  }
+
+  .brand-sub {
+    white-space: normal;
+    line-height: 1.1;
   }
 }
 

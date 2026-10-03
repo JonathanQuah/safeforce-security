@@ -49,23 +49,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.getElementById('navMenu');
 
   if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      const isExpanded = navMenu.classList.contains('mobile-open');
-      if (isExpanded) {
-        navMenu.classList.remove('mobile-open');
-        navMenu.style.display = 'none';
+    const updateToggleIcon = (isOpen) => {
+      mobileToggle.setAttribute('aria-expanded', isOpen);
+      if (isOpen) {
+        mobileToggle.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>';
       } else {
-        navMenu.classList.add('mobile-open');
-        navMenu.style.display = 'flex';
-        navMenu.style.flexDirection = 'column';
-        navMenu.style.position = 'absolute';
-        navMenu.style.top = '80px';
-        navMenu.style.left = '0';
-        navMenu.style.width = '100%';
-        navMenu.style.background = '#0b0d11';
-        navMenu.style.padding = '24px';
-        navMenu.style.borderBottom = '1px solid rgba(212, 175, 55, 0.2)';
-        navMenu.style.zIndex = '9999';
+        mobileToggle.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>';
+      }
+    };
+
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('mobile-open');
+      updateToggleIcon(isOpen);
+    });
+
+    // Close when clicking nav link
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('mobile-open');
+        updateToggleIcon(false);
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target)) {
+        if (navMenu.classList.contains('mobile-open')) {
+          navMenu.classList.remove('mobile-open');
+          updateToggleIcon(false);
+        }
       }
     });
   }
